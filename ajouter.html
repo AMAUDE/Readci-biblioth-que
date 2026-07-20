@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ajouter un document — Bibliothèque Numérique CI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#F77F00;--orange-d:#E36414;--green:#0F9D58;--ink:#15161d;--muted:#5b6270;--line:#e7e8ee;--bg:#f6f7fb;--shadow:0 1px 2px rgba(20,22,40,.04),0 8px 24px rgba(20,22,40,.06)}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+h1,h2,h3,.brand{font-family:'Sora',sans-serif}
+.container{max-width:920px;margin:0 auto;padding:0 20px}
+header.site{position:sticky;top:0;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:20}
+.nav{display:flex;align-items:center;gap:14px;height:66px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;text-decoration:none}
+.logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--orange),var(--green));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-family:'Sora'}
+.spacer{flex:1}
+.nav a.back{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px}
+.wrap{padding:34px 0 60px}
+h1{font-size:28px;letter-spacing:-.4px;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 26px;max-width:640px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:30px}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+.step .n{width:26px;height:26px;border-radius:8px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;font-family:'Sora'}
+.step h3{font-size:14.5px;margin:10px 0 4px}
+.step p{margin:0;font-size:13px;color:var(--muted)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+label{display:block;font-weight:600;font-size:13.5px;margin:14px 0 6px}
+label .hint{font-weight:400;color:var(--muted)}
+input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px 13px;font-size:14.5px;font-family:inherit;outline:none;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:var(--orange)}
+textarea{resize:vertical;min-height:64px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.seg{display:flex;gap:8px;margin-top:6px}
+.seg button{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--muted)}
+.seg button.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.srcbox{margin-top:8px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{border:none;border-radius:11px;padding:13px 20px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit}
+.btn.primary{background:linear-gradient(135deg,var(--orange),var(--orange-d));color:#fff}
+.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.btn.green{background:linear-gradient(135deg,var(--green),#0B7A43);color:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.note{font-size:13px;color:var(--muted);margin-top:8px}
+.added{margin-top:26px}
+.added h2{font-size:16px;margin:0 0 12px}
+.pill{display:flex;align-items:center;gap:10px;background:#f0faf3;border:1px solid #cfeeda;border-radius:11px;padding:10px 12px;margin-bottom:8px;font-size:13.5px}
+.pill .t{flex:1}
+.pill .rm{color:#c0392b;cursor:pointer;font-weight:700;border:none;background:none;font-size:16px}
+.status{padding:11px 14px;border-radius:11px;font-size:13.5px;margin-top:14px;display:none}
+.status.ok{display:block;background:#eafaf0;color:#0B7A43;border:1px solid #cfeeda}
+.status.warn{display:block;background:#fff4e6;color:var(--orange-d);border:1px solid #ffe0bd}
+code{background:#f2f3f7;padding:2px 6px;border-radius:6px;font-size:12.5px}
+@media(max-width:640px){.row,.row3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site"><div class="container nav">
+  <a class="brand" href="index.html"><span class="logo">BN</span> Bibliothèque Numérique CI</a>
+  <div class="spacer"></div>
+  <a class="back" href="index.html">← Retour à la bibliothèque</a>
+</div></header>
+
+<div class="wrap"><div class="container">
+  <h1>Ajouter un document</h1>
+  <p class="lead">Remplissez le formulaire ci-dessous — <strong>aucun code n'est nécessaire</strong>. À la fin, vous téléchargez un fichier <code>catalogue.json</code> mis à jour que vous déposez sur GitHub.</p>
+
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3>Déposez le PDF</h3><p>Placez votre fichier PDF dans le dossier <code>pdfs/</code> du dépôt (ou utilisez un lien web).</p></div>
+    <div class="step"><div class="n">2</div><h3>Remplissez la fiche</h3><p>Type, titre, auteurs, année… puis « Ajouter à la liste ».</p></div>
+    <div class="step"><div class="n">3</div><h3>Téléchargez le catalogue</h3><p>Cliquez sur « Télécharger catalogue.json ».</p></div>
+    <div class="step"><div class="n">4</div><h3>Déposez sur GitHub</h3><p>Remplacez le fichier <code>catalogue.json</code> (à la racine du dépôt) par celui téléchargé.</p></div>
+  </div>
+
+  <div class="panel">
+    <div class="row">
+      <div>
+        <label>Type de document</label>
+        <select id="type">
+          <option value="article">Article scientifique</option>
+          <option value="livre">Livre / Ouvrage</option>
+          <option value="memoire">Mémoire</option>
+          <option value="these">Thèse</option>
+        </select>
+      </div>
+      <div>
+        <label>Année <span class="hint">(ex. 2025)</span></label>
+        <input id="annee" inputmode="numeric" maxlength="4" placeholder="2025"/>
+      </div>
+    </div>
+
+    <label>Titre du document</label>
+    <textarea id="titre" placeholder="Titre complet du document"></textarea>
+
+    <label>Auteur(s) <span class="hint">séparés par des virgules</span></label>
+    <input id="auteurs" placeholder="NOM Prénom, NOM Prénom…"/>
+
+    <div class="row3">
+      <div>
+        <label>Revue / Source</label>
+        <input id="revue" list="revuelist" placeholder="Nom de la revue, université…"/>
+        <datalist id="revuelist"></datalist>
+      </div>
+      <div>
+        <label>Domaine</label>
+        <input id="domaine" list="domainelist" placeholder="Géographie, Santé…"/>
+        <datalist id="domainelist"></datalist>
+      </div>
+      <div>
+        <label>N° / Référence <span class="hint">(facultatif)</span></label>
+        <input id="numero" placeholder="Vol. 3, N°5…"/>
+      </div>
+    </div>
+
+    <label>Fichier à consulter</label>
+    <div class="seg" id="seg">
+      <button class="on" data-mode="file">📄 PDF dans le dossier « pdfs »</button>
+      <button data-mode="link">🔗 Lien web</button>
+    </div>
+    <div class="srcbox" id="filebox">
+      <input id="fichier" placeholder="nom-du-fichier.pdf (identique au fichier déposé dans pdfs/)"/>
+      <div class="note">Déposez d'abord le PDF dans le dossier <code>pdfs/</code>, puis écrivez ici son nom exact.</div>
+    </div>
+    <div class="srcbox" id="linkbox" style="display:none">
+      <input id="lien" placeholder="https://…/document.pdf"/>
+      <div class="note">Collez l'adresse web du document (PDF en ligne).</div>
+    </div>
+
+    <div class="actions">
+      <button class="btn primary" id="add">＋ Ajouter à la liste</button>
+      <button class="btn ghost" id="reset">Effacer le formulaire</button>
+    </div>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="added" id="addedwrap" style="display:none">
+    <h2>Documents ajoutés lors de cette session (<span id="addcount">0</span>)</h2>
+    <div id="addedlist"></div>
+    <div class="actions">
+      <button class="btn green" id="download">⬇ Télécharger catalogue.json</button>
+      <span class="note" id="totalnote"></span>
+    </div>
+  </div>
+</div></div>
+
+<script>
+let CATALOGUE=null;        // full object {meta, documents}
+let baseDocs=[];           // existing docs
+let added=[];              // new docs this session
+let mode='file';
+let maxId=0;
+
+const $=s=>document.querySelector(s);
+
+fetch('catalogue.json').then(r=>r.json()).then(j=>{
+  CATALOGUE = Array.isArray(j) ? {meta:{},documents:j} : j;
+  baseDocs = CATALOGUE.documents||[];
+  baseDocs.forEach(d=>{const m=/doc-(\d+)/.exec(d.id||'');if(m)maxId=Math.max(maxId,+m[1]);});
+  // datalists
+  const rev=[...new Set(baseDocs.map(d=>d.revue).filter(Boolean))].sort();
+  const dom=[...new Set(baseDocs.map(d=>d.domaine).filter(Boolean))].sort();
+  $('#revuelist').innerHTML=rev.map(v=>`<option value="${v.replace(/"/g,'&quot;')}">`).join('');
+  $('#domainelist').innerHTML=dom.map(v=>`<option value="${v.replace(/"/g,'&quot;')}">`).join('');
+}).catch(()=>{ CATALOGUE={meta:{},documents:[]}; baseDocs=[]; });
+
+$('#seg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  mode=b.dataset.mode;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('on',x===b));
+  $('#filebox').style.display = mode==='file'?'block':'none';
+  $('#linkbox').style.display = mode==='link'?'block':'none';
+});
+
+function setStatus(msg,type){const s=$('#status');s.className='status '+type;s.textContent=msg;}
+
+$('#add').addEventListener('click',()=>{
+  const titre=$('#titre').value.trim();
+  const annee=$('#annee').value.trim();
+  const fichier=$('#fichier').value.trim();
+  const lien=$('#lien').value.trim();
+  if(!titre){setStatus('Merci d’indiquer au moins le titre du document.','warn');return;}
+  if(mode==='file' && !fichier){setStatus('Indiquez le nom du fichier PDF (ou choisissez « Lien web »).','warn');return;}
+  if(mode==='link' && !lien){setStatus('Collez le lien web du document (ou choisissez « PDF dans le dossier »).','warn');return;}
+  maxId++;
+  const doc={
+    id:'doc-'+String(maxId).padStart(3,'0'),
+    type:$('#type').value,
+    titre:titre,
+    auteurs:$('#auteurs').value.trim(),
+    annee:annee,
+    revue:$('#revue').value.trim(),
+    numero:$('#numero').value.trim(),
+    source:($('#revue').value.trim()||'Ajout').split('—')[0].trim().slice(0,24),
+    domaine:$('#domaine').value.trim(),
+    lien: mode==='link'?lien:'',
+    fichier: mode==='file'?fichier:''
+  };
+  added.push(doc);
+  renderAdded();
+  setStatus('« '+titre.slice(0,60)+' » ajouté ✔  N’oubliez pas de télécharger le catalogue à la fin.','ok');
+  ['titre','auteurs','annee','numero','fichier','lien'].forEach(id=>$('#'+id).value='');
+});
+
+$('#reset').addEventListener('click',()=>{['titre','auteurs','annee','numero','fichier','lien'].forEach(id=>$('#'+id).value='');setStatus('','');$('#status').className='status';});
+
+function renderAdded(){
+  $('#addedwrap').style.display = added.length?'block':'none';
+  $('#addcount').textContent=added.length;
+  $('#addedlist').innerHTML=added.map((d,i)=>`<div class="pill"><span class="t"><strong>${d.titre.replace(/</g,'&lt;')}</strong> — ${d.annee||'?'} · ${d.type}</span><button class="rm" data-i="${i}" title="Retirer">✕</button></div>`).join('');
+  $('#totalnote').textContent = (baseDocs.length+added.length)+' documents au total dans le catalogue.';
+}
+
+$('#addedlist').addEventListener('click',e=>{
+  const b=e.target.closest('.rm'); if(!b)return;
+  added.splice(+b.dataset.i,1); renderAdded();
+});
+
+$('#download').addEventListener('click',()=>{
+  const out={
+    meta:Object.assign({},CATALOGUE.meta||{},{genere_le:new Date().toISOString().slice(0,10),total:baseDocs.length+added.length}),
+    documents:[...baseDocs,...added]
+  };
+  const blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='catalogue.json';
+  a.click();
+  setStatus('Fichier catalogue.json téléchargé. Déposez-le à la racine de votre dépôt GitHub (Add file → Upload files) pour remplacer l’ancien.','ok');
+});
+</script>
+</body>
+</html>
